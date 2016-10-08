@@ -26,7 +26,7 @@ namespace ZoolandiaRazor.Tests
         Mock<DbSet<Habitat>> mock_habitat_table { get; set; }
         List<Habitat> habitat_list { get; set; }
 
-        ZoolandiaRepo repo { get; set; }
+        ZoolandiaRepository repo { get; set; }
 
         public void ConnectMocksToDatastore()
         {
@@ -78,14 +78,41 @@ namespace ZoolandiaRazor.Tests
             //Employees
             mock_employee_table = new Mock<DbSet<Employee>>();
             employee_list = new List<Employee>();
-            repo = new VariablesRepository(mock_context.Object);
+            //Habitat
+            mock_habitat_table = new Mock<DbSet<Habitat>>();
+            habitat_list = new List<Habitat>();
+
+            repo = new ZoolandiaRepository(mock_context.Object);
 
             ConnectMocksToDatastore();
         }
 
-        [TestMethod]
-        public void TestMethod1()
+        [TestCleanup]
+        public void CleanUp()
         {
+            repo = null;
+        }
+
+        [TestMethod]
+        public void ZoolandiaRepoIsCreatedInInitializeMethod()
+        {
+            Assert.IsNotNull(repo);
+        }
+
+        [TestMethod]
+        public void ZoolandiaRepoWillReturnAListOfAllAnimals()
+        {
+            //Arrange
+            Animal Animal1 = new Animal{
+                AnimalId = 1,
+                Name = "Ralph",
+                CommonName = "Red Panda",
+                ScientificName = "Ailurus Fulgens",
+                Age = 3
+            }; 
+            //Act
+            //Assert
+            
         }
     }
 }
