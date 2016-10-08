@@ -66,6 +66,40 @@ namespace ZoolandiaRazor.Tests
             mock_habitat_table.Setup(t => t.Add(It.IsAny<Habitat>())).Callback((Habitat h) => habitat_list.Add(h));
         }
 
+        public List<Habitat> TestSeeding() {
+            /// ANIMALS ///
+            Animal Animal1 = new Animal
+            {
+                AnimalId = 1,
+                Name = "Ralph",
+                CommonName = "Red Panda",
+                ScientificName = "Ailurus Fulgens",
+                Age = 3
+            };
+
+            /// EMPLOYEES
+            Employee Employee1 = new Employee
+            {
+                EmployeeId = 1,
+                Name = "Craig",
+                Age = 40,
+            };
+
+            /// HABITATS
+            Habitat Habitat1 = new Habitat
+            {
+                HabitatId = 1,
+                Name = "Forest",
+                HabitatType = "Rain Forest",
+                CurrentlyOpen = true,
+                CurrentInhabitants = new List<Animal> { Animal1 },
+                CurrentlyAssignedEmployees = new List<Employee> { Employee1}
+            };
+
+
+            return new List<Habitat> { Habitat1 };
+        }
+
         // RESET before each test
         [TestInitialize]
         public void Initialize()
@@ -103,13 +137,7 @@ namespace ZoolandiaRazor.Tests
         public void ZoolandiaRepoWillReturnAListOfAllAnimals()
         {
             //Arrange
-            Animal Animal1 = new Animal{
-                AnimalId = 1,
-                Name = "Ralph",
-                CommonName = "Red Panda",
-                ScientificName = "Ailurus Fulgens",
-                Age = 3
-            }; 
+            
             //Act
             //Assert
             
