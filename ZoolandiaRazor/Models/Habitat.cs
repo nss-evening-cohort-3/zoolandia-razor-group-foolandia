@@ -7,7 +7,7 @@ namespace ZoolandiaRazor.Models
         [Key]
         public int HabitatId { get; set; }
         public string Name { get; set; }
-        public virtual string HabitatType { get; set; }
+        public string HabitatType { get; set; }
         public bool CurrentlyOpen { get; set; }
     }
 }
