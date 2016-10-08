@@ -34,21 +34,53 @@ namespace ZoolandiaRazor.Tests
             var employee_queryable_list = employee_list.AsQueryable();
             var habitat_queryable_list = habitat_list.AsQueryable();
 
-            // Each time Linq tries to query our "table", redirect the query to point at our queirable list INSTEAD of the real database
-            mock_variable_table.As<IQueryable<Variable>>().Setup(m => m.Provider).Returns(queryable_list.Provider);
-            mock_variable_table.As<IQueryable<Variable>>().Setup(m => m.Expression).Returns(queryable_list.Expression);
-            mock_variable_table.As<IQueryable<Variable>>().Setup(m => m.ElementType).Returns(queryable_list.ElementType);
-            mock_variable_table.As<IQueryable<Variable>>().Setup(m => m.GetEnumerator()).Returns(() => queryable_list.GetEnumerator());
+            /// ANIMAL ///
+            // Each time Linq tries to query our "animal table", redirect the query to point at our queirable list INSTEAD of the real database
+            mock_animal_table.As<IQueryable<Animal>>().Setup(m => m.Provider).Returns(animal_queryable_list.Provider);
+            mock_animal_table.As<IQueryable<Animal>>().Setup(m => m.Expression).Returns(animal_queryable_list.Expression);
+            mock_animal_table.As<IQueryable<Animal>>().Setup(m => m.ElementType).Returns(animal_queryable_list.ElementType);
+            mock_animal_table.As<IQueryable<Animal>>().Setup(m => m.GetEnumerator()).Returns(() => animal_queryable_list.GetEnumerator());
 
-            // This is now our table the is representative of the REAL DATABASE.
-            mock_context.Setup(c => c.Variables).Returns(mock_variable_table.Object);
+            /// EMPLOYEE ///
+            // Each time Linq tries to query our "employee table", redirect the query to point at our queirable list INSTEAD of the real database
+            mock_employee_table.As<IQueryable<Employee>>().Setup(m => m.Provider).Returns(employee_queryable_list.Provider);
+            mock_employee_table.As<IQueryable<Employee>>().Setup(m => m.Expression).Returns(employee_queryable_list.Expression);
+            mock_employee_table.As<IQueryable<Employee>>().Setup(m => m.ElementType).Returns(employee_queryable_list.ElementType);
+            mock_employee_table.As<IQueryable<Employee>>().Setup(m => m.GetEnumerator()).Returns(() => employee_queryable_list.GetEnumerator());
 
-            // Add | Remove  stuff to our representatve table
-            mock_variable_table.Setup(t => t.Add(It.IsAny<Variable>())).Callback((Variable v) => variable_list.Add(v));
-            mock_variable_table.Setup(t => t.Remove(It.IsAny<Variable>())).Callback((Variable a) => variable_list.Remove(a));
-            //mock_variable_table.Setup(t => t.Find(It.IsAny<string>())).Callback((string a) => variable_list.Find( x => x.VarSym == a));
-            //mock_variable_table.Setup(t => t.Find(It.IsAny<string[]>())).Returns((string a) => variable_list.Find(x => x.VarSym == a));
+            /// HABITAT ///
+            // Each time Linq tries to query our "animal table", redirect the query to point at our queirable list INSTEAD of the real database
+            mock_habitat_table.As<IQueryable<Habitat>>().Setup(m => m.Provider).Returns(habitat_queryable_list.Provider);
+            mock_habitat_table.As<IQueryable<Habitat>>().Setup(m => m.Expression).Returns(habitat_queryable_list.Expression);
+            mock_habitat_table.As<IQueryable<Habitat>>().Setup(m => m.ElementType).Returns(habitat_queryable_list.ElementType);
+            mock_habitat_table.As<IQueryable<Habitat>>().Setup(m => m.GetEnumerator()).Returns(() => habitat_queryable_list.GetEnumerator());
 
+            // These are now our tables the is representative of the REAL DATABASE.
+            mock_context.Setup(c => c.Animals).Returns(mock_animal_table.Object);
+            mock_context.Setup(c => c.Employees).Returns(mock_employee_table.Object);
+            mock_context.Setup(c => c.Habitats).Returns(mock_habitat_table.Object);
+
+            // Add stuff to our representatve tables
+            mock_animal_table.Setup(t => t.Add(It.IsAny<Animal>())).Callback((Animal a) => animals_list.Add(a));
+            mock_employee_table.Setup(t => t.Add(It.IsAny<Employee>())).Callback((Employee e) => employee_list.Add(e));
+            mock_habitat_table.Setup(t => t.Add(It.IsAny<Habitat>())).Callback((Habitat h) => habitat_list.Add(h));
+        }
+
+        // RESET before each test
+        [TestInitialize]
+        public void Initialize()
+        {
+            // Populate mock context
+            mock_context = new Mock<ZoolandiaContext>();
+            //Animals
+            mock_animal_table = new Mock<DbSet<Animal>>();
+            animals_list = new List<Animal>();
+            //Employees
+            mock_employee_table = new Mock<DbSet<Employee>>();
+            employee_list = new List<Employee>();
+            repo = new VariablesRepository(mock_context.Object);
+
+            ConnectMocksToDatastore();
         }
 
         [TestMethod]
