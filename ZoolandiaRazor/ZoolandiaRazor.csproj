@@ -128,10 +128,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="DAL\ZoolandiaRepository.cs" />
+    <Compile Include="DisplayAnimalInfo.cs" />
     <Compile Include="Controllers\AnimalController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HabitatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DAL\ZoolandiaContext.cs" />
+    <Compile Include="DisplayEmployeeInfo.cs" />
+    <Compile Include="DisplayHabitatInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -71,5 +71,96 @@ namespace ZoolandiaRazor.DAL
             }
             return ListOfHabitats;
         }
+
+        public DisplayAnimalInfo GetOneSpecificAnimal(int requestedAnimalByItsId)
+        {
+            var singleAnimalReturned = Context.Animals.Where(a => a.AnimalId == requestedAnimalByItsId).FirstOrDefault(); // Returns 'null' if no entries are found instead of throwing an exception.
+
+            if (singleAnimalReturned == null)
+            {
+                DisplayAnimalInfo singleAnimalToBeDisplayed = new DisplayAnimalInfo
+                {
+                    AnimalId = requestedAnimalByItsId,
+                    Name = "Animal not found"
+                };
+                return singleAnimalToBeDisplayed;
+            }
+            else
+            {
+                DisplayAnimalInfo singleAnimalToBeDisplayed = new DisplayAnimalInfo
+                {
+                    AnimalId = singleAnimalReturned.AnimalId,
+                    Name = singleAnimalReturned.Name,
+                    CommonName = singleAnimalReturned.CommonName,
+                    ScientificName = singleAnimalReturned.ScientificName,
+                    CurrentHabitat = singleAnimalReturned.CurrentHabitat.Name,
+                    Age = singleAnimalReturned.Age
+                };
+                return singleAnimalToBeDisplayed;
+            }
+        }
+
+        public DisplayHabitatInfo GetOneSpecificHabitat(int requestedHabitatByItsId)
+        {
+            var singleHabitatReturned = Context.Habitats.Where(a => a.HabitatId == requestedHabitatByItsId).FirstOrDefault(); // Returns 'null' if no entries are found instead of throwing an exception.
+
+            if (singleHabitatReturned == null)
+            {
+                DisplayHabitatInfo singleHabitatToBeDisplayed = new DisplayHabitatInfo
+                {
+                    HabitatId = requestedHabitatByItsId,
+                    Name = "Habitat not found"
+                };
+                return singleHabitatToBeDisplayed;
+            }
+            else
+            {
+                var test = Context.Employees.Where(emp => Context.Habitats.Where() )
+
+                DisplayHabitatInfo singleHabitatToBeDisplayed = new DisplayHabitatInfo
+                {
+                    HabitatId = singleHabitatReturned.HabitatId,
+                    Name = singleHabitatReturned.Name,
+                    HabitatType = singleHabitatReturned.HabitatType,
+                    // Looks through the Animals for the selected Habitat By Id, Selects the name of those animals and makes it a list
+                    CurrentAnimals = Context.Animals.Where(a => a.CurrentHabitat.HabitatId == requestedHabitatByItsId).Select(a => a.Name).ToList(),
+                    //CurrentAssignedEmployees = // Needs fixing 
+                };
+                return singleHabitatToBeDisplayed;
+            }
+        }
+
+        public DisplayEmployeeInfo GetOneSpecificEmployee(int requestedEmployeeById)
+        {
+            var singleEmployeeReturned = Context.Employees.Where(a => a.EmployeeId == requestedEmployeeById).FirstOrDefault(); // Returns 'null' if no entries are found instead of throwing an exception.
+
+            if (singleEmployeeReturned == null)
+            {
+                DisplayEmployeeInfo singleEmployeeToBeDisplayed = new DisplayEmployeeInfo
+                {
+                    EmployeeId = requestedEmployeeById,
+                    Name = "Employee not found"
+                };
+                return singleEmployeeToBeDisplayed;
+            }
+            else
+            {
+                List<string> buildHabitatList = new List<string>();
+
+                foreach (var item in singleEmployeeReturned.CurrentlyAssignedHabitats)
+                {
+                    buildHabitatList.Add(Context.Habitats.Where(h => h.HabitatId == item.HabitatId).First().Name);
+                }
+
+                DisplayEmployeeInfo singleEmployeeToBeDisplayed = new DisplayEmployeeInfo
+                {
+                    EmployeeId = singleEmployeeReturned.EmployeeId,
+                    Name = singleEmployeeReturned.Name,
+                    Age = singleEmployeeReturned.Age,
+                    CurrentAssignedHabitats = buildHabitatList
+                };
+                return singleEmployeeToBeDisplayed;
+            }
+        }
     }
 }
