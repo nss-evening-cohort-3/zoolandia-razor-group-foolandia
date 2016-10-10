@@ -115,8 +115,6 @@ namespace ZoolandiaRazor.DAL
             }
             else
             {
-                var test = Context.Employees.Where(emp => Context.Habitats.Where() )
-
                 DisplayHabitatInfo singleHabitatToBeDisplayed = new DisplayHabitatInfo
                 {
                     HabitatId = singleHabitatReturned.HabitatId,
@@ -124,7 +122,8 @@ namespace ZoolandiaRazor.DAL
                     HabitatType = singleHabitatReturned.HabitatType,
                     // Looks through the Animals for the selected Habitat By Id, Selects the name of those animals and makes it a list
                     CurrentAnimals = Context.Animals.Where(a => a.CurrentHabitat.HabitatId == requestedHabitatByItsId).Select(a => a.Name).ToList(),
-                    //CurrentAssignedEmployees = // Needs fixing 
+                    // The intent is to take the employee table, find the ones where CurrentlyAssignedHabitats contains the requestedHabitatId and makes a list of the employee names
+                    CurrentAssignedEmployees = Context.Employees.Where(em => em.CurrentlyAssignedHabitats.ToString().Contains(requestedHabitatByItsId.ToString())).Select(em => em.Name).ToList()
                 };
                 return singleHabitatToBeDisplayed;
             }
