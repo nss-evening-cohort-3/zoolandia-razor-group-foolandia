@@ -66,39 +66,7 @@ namespace ZoolandiaRazor.Tests
             mock_habitat_table.Setup(t => t.Add(It.IsAny<Habitat>())).Callback((Habitat h) => habitat_list.Add(h));
         }
 
-        public List<Habitat> TestSeeding() {
-            /// ANIMALS ///
-            Animal Animal1 = new Animal
-            {
-                AnimalId = 1,
-                Name = "Ralph",
-                CommonName = "Red Panda",
-                ScientificName = "Ailurus Fulgens",
-                Age = 3
-            };
-
-            /// EMPLOYEES
-            Employee Employee1 = new Employee
-            {
-                EmployeeId = 1,
-                Name = "Craig",
-                Age = 40,
-            };
-
-            /// HABITATS
-            Habitat Habitat1 = new Habitat
-            {
-                HabitatId = 1,
-                Name = "Forest",
-                HabitatType = "Rain Forest",
-                CurrentlyOpen = true,
-                CurrentInhabitants = new List<Animal> { Animal1 },
-                CurrentlyAssignedEmployees = new List<Employee> { Employee1}
-            };
-
-
-            return new List<Habitat> { Habitat1 };
-        }
+//TODO: Adjust Sandy's Seeding method to adapt to testing environment
 
         // RESET before each test
         [TestInitialize]
@@ -137,10 +105,78 @@ namespace ZoolandiaRazor.Tests
         public void ZoolandiaRepoWillReturnAListOfAllAnimals()
         {
             //Arrange
-            
+//TODO: Call Sandy's Seeding method
             //Act
+            List<DisplayAnimalInfo> actual_animals =  repo.GetAllAnimals();
+ //TODO: Fill in with Sandy's seeding results
+            List<DisplayAnimalInfo> expected_animals = new List<DisplayAnimalInfo> { };
             //Assert
-            
+            Assert.AreEqual(actual_animals, expected_animals);
+        }
+
+        [TestMethod]
+        public void ZoolandiaRepoWillReturnASpecificAnimalToDisplay()
+        {
+            //Arrange
+//TODO: Call Sandy's Seeding method
+            //Act
+            DisplayAnimalInfo actual_animal = repo.GetOneAnimalDetailsById(1);
+//TODO: Fill in with Sandy's seeding results
+            DisplayAnimalInfo expected_animal = new DisplayAnimalInfo { };
+            //Assert
+            Assert.AreEqual(actual_animal, expected_animal);
+        }
+
+        [TestMethod]
+        public void ZoolandiaRepoWillReturnAListOfAllEmployees()
+        {
+            //Arrange
+//TODO: Call Sandy's Seeding method
+            //Act
+            List<DisplayEmployeeInfo> actual_employees = repo.GetAllEmployees();
+//TODO: Fill in with Sandy's seeding results
+            List<DisplayEmployeeInfo> expected_employees = new List<DisplayEmployeeInfo> { };
+            //Assert
+            Assert.AreEqual(actual_employees, expected_employees);
+        }
+
+        [TestMethod]
+        public void ZoolandiaRepoWillReturnASpecificEmployeeToDisplay()
+        {
+            //Arrange
+//TODO: Call Sandy's Seeding method
+            //Act
+            DisplayEmployeeInfo actual_employee = repo.GetOneEmployeeDetailsById(1);
+//TODO: Fill in with Sandy's seeding results
+            DisplayEmployeeInfo expected_employee = new DisplayEmployeeInfo { };
+            //Assert
+            Assert.AreEqual(actual_employee, expected_employee);
+        }
+
+        [TestMethod]
+        public void ZoolandiaRepoWillReturnAListOfAllHabitats()
+        {
+            //Arrange
+//TODO: Call Sandy's Seeding method
+            //Act
+            List<DisplayHabitatInfo> actual_habitats = repo.GetAllHabitats();
+//TODO: Fill in with Sandy's seeding results
+            List<DisplayHabitatInfo> expected_habitats = new List<DisplayHabitatInfo> { };
+            //Assert
+            Assert.AreEqual(actual_habitats, expected_habitats);
+        }
+
+        [TestMethod]
+        public void ZoolandiaRepoWillReturnASpecificHabitatToDisplay()
+        {
+            //Arrange
+//TODO: Call Sandy's Seeding method
+            //Act
+            DisplayHabitatInfo actual_habitat = repo.GetOneHabitatDetailsById(1);
+//TODO: Fill in with Sandy's seeding results
+            DisplayHabitatInfo expected_habitat = new DisplayHabitatInfo { };
+            //Assert
+            Assert.AreEqual(actual_habitat, expected_habitat);
         }
     }
 }
