@@ -29,7 +29,7 @@ namespace ZoolandiaRazor.Migrations
             //    );
             //
             context.Animals.AddOrUpdate(
-              a => a,
+              
             /// ANIMALS ///
                 new Animal
                 {
@@ -82,7 +82,6 @@ namespace ZoolandiaRazor.Migrations
               );
 
             context.Employees.AddOrUpdate(
-              e => e,
 
                 /// EMPLOYEES
                 new Employee
@@ -126,7 +125,6 @@ namespace ZoolandiaRazor.Migrations
             context.SaveChanges();
 
             context.Habitats.AddOrUpdate(
-                h => h,
 
                 /// HABITATS
                 new Habitat
