@@ -144,14 +144,6 @@
     <Compile Include="Migrations\201610102325570_InitialCreate.Designer.cs">
       <DependentUpon>201610102325570_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610110010585_SeedingData.cs" />
-    <Compile Include="Migrations\201610110010585_SeedingData.Designer.cs">
-      <DependentUpon>201610110010585_SeedingData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610110013161_SeedingData1.cs" />
-    <Compile Include="Migrations\201610110013161_SeedingData1.Designer.cs">
-      <DependentUpon>201610110013161_SeedingData1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201610110018570_SeedingDataFixed.cs" />
     <Compile Include="Migrations\201610110018570_SeedingDataFixed.Designer.cs">
       <DependentUpon>201610110018570_SeedingDataFixed.cs</DependentUpon>
@@ -215,12 +207,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610102325570_InitialCreate.resx">
       <DependentUpon>201610102325570_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610110010585_SeedingData.resx">
-      <DependentUpon>201610110010585_SeedingData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610110013161_SeedingData1.resx">
-      <DependentUpon>201610110013161_SeedingData1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610110018570_SeedingDataFixed.resx">
       <DependentUpon>201610110018570_SeedingDataFixed.cs</DependentUpon>
