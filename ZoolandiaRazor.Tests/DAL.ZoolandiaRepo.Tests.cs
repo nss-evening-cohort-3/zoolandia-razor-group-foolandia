@@ -257,13 +257,29 @@ namespace ZoolandiaRazor.Tests
         public void ZoolandiaRepoWillReturnASpecificHabitatToDisplay()
         {
             //Arrange
-//TODO: Call Sandy's Seeding method
+            //Arrange
+            test_seed.Habitat1.CurrentInhabitants = new List<Animal> { test_seed.Animal1, test_seed.Animal2, test_seed.Animal3, test_seed.Animal6 };
+            test_seed.Habitat1.CurrentlyAssignedEmployees = new List<Employee> { test_seed.Employee1, test_seed.Employee3, test_seed.Employee4 };
+
+            test_seed.Habitat2.CurrentInhabitants = new List<Animal> { test_seed.Animal4, test_seed.Animal5 };
+            test_seed.Habitat2.CurrentlyAssignedEmployees = new List<Employee> { test_seed.Employee2, test_seed.Employee5, test_seed.Employee6 };
+
+            habitat_list.Add(test_seed.Habitat1);
+            habitat_list.Add(test_seed.Habitat2);
             //Act
             DisplayHabitatInfo actual_habitat = repo.GetOneSpecificHabitat(1);
-//TODO: Fill in with Sandy's seeding results
-            DisplayHabitatInfo expected_habitat = new DisplayHabitatInfo { };
-            //Assert
-            Assert.AreEqual(actual_habitat, expected_habitat);
+            DisplayHabitatInfo expected_habitat = new DisplayHabitatInfo { HabitatId = 1, Name = "Forest", HabitatType = "Rain Forest", CurrentlyOpen = true, NumberOfAnimalsInHabitat = 4, CurrentAnimals = new List<string> { "Ralph", "Ash", "Tommy", "Suzy" }, CurrentAssignedEmployees = new List<string> { "Craig Mifton", "Angie Stongly", "Jim Bakster" } };
+            
+            //Assert 
+            Assert.AreEqual(actual_habitat.HabitatId, expected_habitat.HabitatId);
+            Assert.AreEqual(actual_habitat.Name, expected_habitat.Name);
+            Assert.AreEqual(actual_habitat.HabitatType, expected_habitat.HabitatType);
+            //Assert.AreEqual(actual_habitat.CurrentlyOpen, expected_habitat.CurrentlyOpen);
+            //Assert.AreEqual(actual_habitat.NumberOfAnimalsInHabitat, expected_habitat.NumberOfAnimalsInHabitat);
+            Assert.AreEqual(actual_habitat.CurrentAnimals.Count, expected_habitat.CurrentAnimals.Count);
+            Assert.AreEqual(actual_habitat.CurrentAssignedEmployees.Count, expected_habitat.CurrentAssignedEmployees.Count);
+
+
         }
     }
 }
