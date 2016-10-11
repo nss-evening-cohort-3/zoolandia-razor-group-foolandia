@@ -29,7 +29,7 @@ namespace ZoolandiaRazor.DAL
             {
                 currentAnimalFromDatabase.AnimalId = animalRow.AnimalId;
                 currentAnimalFromDatabase.Name = animalRow.Name;
-                currentAnimalFromDatabase.CurrentHabitat = animalRow.CurrentHabitat.ToString();
+                currentAnimalFromDatabase.CurrentHabitat = animalRow.CurrentHabitat.Name.ToString();
 
                 ListOfAnimals.Add(currentAnimalFromDatabase);
             }

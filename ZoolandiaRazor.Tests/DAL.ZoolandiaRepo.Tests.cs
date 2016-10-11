@@ -107,25 +107,65 @@ namespace ZoolandiaRazor.Tests
         {
             //Arrange
             //Seed method is called in initialize.
+            test_seed.Animal1.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal2.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal3.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal4.CurrentHabitat = test_seed.Habitat2;
+            test_seed.Animal5.CurrentHabitat = test_seed.Habitat2;
+            test_seed.Animal6.CurrentHabitat = test_seed.Habitat1;
+
+            animals_list.Add(test_seed.Animal1);
+            animals_list.Add(test_seed.Animal2);
+            animals_list.Add(test_seed.Animal3);
+            animals_list.Add(test_seed.Animal4);
+            animals_list.Add(test_seed.Animal5);
+            animals_list.Add(test_seed.Animal6);
+        
+
+
             //Act
             List<DisplayAnimalInfo> actual_animals =  repo.GetAllAnimals();
             List<DisplayAnimalInfo> expected_animals = new List<DisplayAnimalInfo> {
-                new DisplayAnimalInfo { AnimalId = 1,  Name = "Ralph", CommonName = "Red Panda", ScientificName = "Ailurus Fulgens", CurrentHabitat= "", Age = 3},
+                new DisplayAnimalInfo { AnimalId = 1,  Name = "Ralph", CommonName = "Red Panda", ScientificName = "Ailurus Fulgens", CurrentHabitat= "Forest", Age = 3},
+                new DisplayAnimalInfo { AnimalId = 2,  Name = "Ash", CommonName = "Spider Monkey", ScientificName = "Ateles", CurrentHabitat= "Forest", Age = 5},
+                new DisplayAnimalInfo { AnimalId = 3,  Name = "Tommy", CommonName = "Jaguar", ScientificName = "Panthera Onca", CurrentHabitat= "Forest", Age = 4},
+                new DisplayAnimalInfo { AnimalId = 4,  Name = "Gina", CommonName = "Seal", ScientificName = "Phocidae", CurrentHabitat= "Arctic", Age = 2},
+                new DisplayAnimalInfo { AnimalId = 5,  Name = "Hal", CommonName = "Polar Bear", ScientificName = "Ursus maritimus", CurrentHabitat= "Arctic", Age = 3},
+                new DisplayAnimalInfo { AnimalId = 6,  Name = "Suzy", CommonName = "Lemur", ScientificName = "Lemuroidea", CurrentHabitat= "Forest", Age = 2}
+            };
             //Assert
-            Assert.AreEqual(actual_animals, expected_animals);
+            Assert.AreEqual(actual_animals.Count, expected_animals.Count);
         }
 
         [TestMethod]
         public void ZoolandiaRepoWillReturnASpecificAnimalToDisplay()
         {
             //Arrange
-//TODO: Call Sandy's Seeding method
+            //Seed method is called in initialize.
+            test_seed.Animal1.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal2.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal3.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal4.CurrentHabitat = test_seed.Habitat2;
+            test_seed.Animal5.CurrentHabitat = test_seed.Habitat2;
+            test_seed.Animal6.CurrentHabitat = test_seed.Habitat1;
+
+            animals_list.Add(test_seed.Animal1);
+            animals_list.Add(test_seed.Animal2);
+            animals_list.Add(test_seed.Animal3);
+            animals_list.Add(test_seed.Animal4);
+            animals_list.Add(test_seed.Animal5);
+            animals_list.Add(test_seed.Animal6);
+
             //Act
             DisplayAnimalInfo actual_animal = repo.GetOneSpecificAnimal(1);
-//TODO: Fill in with Sandy's seeding results
-            DisplayAnimalInfo expected_animal = new DisplayAnimalInfo { };
+            DisplayAnimalInfo expected_animal = new DisplayAnimalInfo { AnimalId = 1, Name = "Ralph", CommonName = "Red Panda", ScientificName = "Ailurus Fulgens", CurrentHabitat = "Forest", Age = 3 };
             //Assert
-            Assert.AreEqual(actual_animal, expected_animal);
+            Assert.AreEqual(actual_animal.AnimalId, expected_animal.AnimalId);
+            Assert.AreEqual(actual_animal.Name, expected_animal.Name);
+            Assert.AreEqual(actual_animal.CommonName, expected_animal.CommonName);
+            Assert.AreEqual(actual_animal.ScientificName, expected_animal.ScientificName);
+            Assert.AreEqual(actual_animal.CurrentHabitat, expected_animal.CurrentHabitat);
+            Assert.AreEqual(actual_animal.Age, expected_animal.Age);
         }
 
         [TestMethod]
@@ -138,7 +178,7 @@ namespace ZoolandiaRazor.Tests
 //TODO: Fill in with Sandy's seeding results
             List<DisplayEmployeeInfo> expected_employees = new List<DisplayEmployeeInfo> { };
             //Assert
-            Assert.AreEqual(actual_employees, expected_employees);
+            Assert.AreEqual(actual_employees.Count, expected_employees.Count);
         }
 
         [TestMethod]
