@@ -28,6 +28,7 @@ namespace ZoolandiaRazor.Tests
 
         ZoolandiaRepository repo { get; set; }
 
+        TestSeeding test_seed = new TestSeeding();
         public void ConnectMocksToDatastore()
         {
             var animal_queryable_list = animals_list.AsQueryable();
@@ -85,7 +86,7 @@ namespace ZoolandiaRazor.Tests
             habitat_list = new List<Habitat>();
 
             repo = new ZoolandiaRepository(mock_context.Object);
-
+            test_seed.TestSeedingHabitat();
             ConnectMocksToDatastore();
         }
 
