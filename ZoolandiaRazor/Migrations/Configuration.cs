@@ -150,6 +150,7 @@ namespace ZoolandiaRazor.Migrations
                 {
                     HabitatId = 2,
                     Name = "Arctic",
+                    HabitatType = "Arctic Tundra",
                     CurrentlyOpen = true,
                     CurrentInhabitants = new List<Animal> {
                         context.Animals.FirstOrDefault(a => a.AnimalId == 4),

@@ -148,6 +148,14 @@
     <Compile Include="Migrations\201610110010585_SeedingData.Designer.cs">
       <DependentUpon>201610110010585_SeedingData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610110013161_SeedingData1.cs" />
+    <Compile Include="Migrations\201610110013161_SeedingData1.Designer.cs">
+      <DependentUpon>201610110013161_SeedingData1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610110018570_SeedingDataFixed.cs" />
+    <Compile Include="Migrations\201610110018570_SeedingDataFixed.Designer.cs">
+      <DependentUpon>201610110018570_SeedingDataFixed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Animal.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -210,6 +218,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610110010585_SeedingData.resx">
       <DependentUpon>201610110010585_SeedingData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610110013161_SeedingData1.resx">
+      <DependentUpon>201610110013161_SeedingData1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610110018570_SeedingDataFixed.resx">
+      <DependentUpon>201610110018570_SeedingDataFixed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -7,13 +7,13 @@ namespace ZoolandiaRazor.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class SeedingData : IMigrationMetadata
+    public sealed partial class SeedingDataFixed : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SeedingData));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SeedingDataFixed));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610110010585_SeedingData"; }
+            get { return "201610110018570_SeedingDataFixed"; }
         }
         
         string IMigrationMetadata.Source
