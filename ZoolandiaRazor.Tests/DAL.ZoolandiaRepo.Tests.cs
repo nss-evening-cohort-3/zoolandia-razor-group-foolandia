@@ -28,6 +28,7 @@ namespace ZoolandiaRazor.Tests
 
         ZoolandiaRepository repo { get; set; }
 
+        TestSeeding test_seed = new TestSeeding();
         public void ConnectMocksToDatastore()
         {
             var animal_queryable_list = animals_list.AsQueryable();
@@ -85,7 +86,7 @@ namespace ZoolandiaRazor.Tests
             habitat_list = new List<Habitat>();
 
             repo = new ZoolandiaRepository(mock_context.Object);
-
+            test_seed.TestSeedingHabitat();
             ConnectMocksToDatastore();
         }
 
@@ -105,78 +106,180 @@ namespace ZoolandiaRazor.Tests
         public void ZoolandiaRepoWillReturnAListOfAllAnimals()
         {
             //Arrange
-//TODO: Call Sandy's Seeding method
+            //Seed method is called in initialize.
+            test_seed.Animal1.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal2.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal3.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal4.CurrentHabitat = test_seed.Habitat2;
+            test_seed.Animal5.CurrentHabitat = test_seed.Habitat2;
+            test_seed.Animal6.CurrentHabitat = test_seed.Habitat1;
+
+            animals_list.Add(test_seed.Animal1);
+            animals_list.Add(test_seed.Animal2);
+            animals_list.Add(test_seed.Animal3);
+            animals_list.Add(test_seed.Animal4);
+            animals_list.Add(test_seed.Animal5);
+            animals_list.Add(test_seed.Animal6);
+        
+
+
             //Act
             List<DisplayAnimalInfo> actual_animals =  repo.GetAllAnimals();
- //TODO: Fill in with Sandy's seeding results
-            List<DisplayAnimalInfo> expected_animals = new List<DisplayAnimalInfo> { };
+            List<DisplayAnimalInfo> expected_animals = new List<DisplayAnimalInfo> {
+                new DisplayAnimalInfo { AnimalId = 1,  Name = "Ralph", CommonName = "Red Panda", ScientificName = "Ailurus Fulgens", CurrentHabitat= "Forest", Age = 3},
+                new DisplayAnimalInfo { AnimalId = 2,  Name = "Ash", CommonName = "Spider Monkey", ScientificName = "Ateles", CurrentHabitat= "Forest", Age = 5},
+                new DisplayAnimalInfo { AnimalId = 3,  Name = "Tommy", CommonName = "Jaguar", ScientificName = "Panthera Onca", CurrentHabitat= "Forest", Age = 4},
+                new DisplayAnimalInfo { AnimalId = 4,  Name = "Gina", CommonName = "Seal", ScientificName = "Phocidae", CurrentHabitat= "Arctic", Age = 2},
+                new DisplayAnimalInfo { AnimalId = 5,  Name = "Hal", CommonName = "Polar Bear", ScientificName = "Ursus maritimus", CurrentHabitat= "Arctic", Age = 3},
+                new DisplayAnimalInfo { AnimalId = 6,  Name = "Suzy", CommonName = "Lemur", ScientificName = "Lemuroidea", CurrentHabitat= "Forest", Age = 2}
+            };
             //Assert
-            Assert.AreEqual(actual_animals, expected_animals);
+            Assert.AreEqual(actual_animals.Count, expected_animals.Count);
+
         }
 
         [TestMethod]
         public void ZoolandiaRepoWillReturnASpecificAnimalToDisplay()
         {
             //Arrange
-//TODO: Call Sandy's Seeding method
+            //Seed method is called in initialize.
+            test_seed.Animal1.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal2.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal3.CurrentHabitat = test_seed.Habitat1;
+            test_seed.Animal4.CurrentHabitat = test_seed.Habitat2;
+            test_seed.Animal5.CurrentHabitat = test_seed.Habitat2;
+            test_seed.Animal6.CurrentHabitat = test_seed.Habitat1;
+
+            animals_list.Add(test_seed.Animal1);
+            animals_list.Add(test_seed.Animal2);
+            animals_list.Add(test_seed.Animal3);
+            animals_list.Add(test_seed.Animal4);
+            animals_list.Add(test_seed.Animal5);
+            animals_list.Add(test_seed.Animal6);
+
             //Act
-            DisplayAnimalInfo actual_animal = repo.GetOneAnimalDetailsById(1);
-//TODO: Fill in with Sandy's seeding results
-            DisplayAnimalInfo expected_animal = new DisplayAnimalInfo { };
+            DisplayAnimalInfo actual_animal = repo.GetOneSpecificAnimal(1);
+            DisplayAnimalInfo expected_animal = new DisplayAnimalInfo { AnimalId = 1, Name = "Ralph", CommonName = "Red Panda", ScientificName = "Ailurus Fulgens", CurrentHabitat = "Forest", Age = 3 };
             //Assert
-            Assert.AreEqual(actual_animal, expected_animal);
+            Assert.AreEqual(actual_animal.AnimalId, expected_animal.AnimalId);
+            Assert.AreEqual(actual_animal.Name, expected_animal.Name);
+            Assert.AreEqual(actual_animal.CommonName, expected_animal.CommonName);
+            Assert.AreEqual(actual_animal.ScientificName, expected_animal.ScientificName);
+            Assert.AreEqual(actual_animal.CurrentHabitat, expected_animal.CurrentHabitat);
+            Assert.AreEqual(actual_animal.Age, expected_animal.Age);
         }
 
         [TestMethod]
         public void ZoolandiaRepoWillReturnAListOfAllEmployees()
         {
             //Arrange
-//TODO: Call Sandy's Seeding method
+            test_seed.Employee1.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat1 };
+            test_seed.Employee2.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat2 };
+            test_seed.Employee3.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat1 };
+            test_seed.Employee4.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat1 };
+            test_seed.Employee5.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat2 };
+            test_seed.Employee6.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat2 };
+
+            employee_list.Add(test_seed.Employee1);
+            employee_list.Add(test_seed.Employee2);
+            employee_list.Add(test_seed.Employee3);
+            employee_list.Add(test_seed.Employee4);
+            employee_list.Add(test_seed.Employee5);
+            employee_list.Add(test_seed.Employee6);
             //Act
             List<DisplayEmployeeInfo> actual_employees = repo.GetAllEmployees();
-//TODO: Fill in with Sandy's seeding results
-            List<DisplayEmployeeInfo> expected_employees = new List<DisplayEmployeeInfo> { };
+            List<DisplayEmployeeInfo> expected_employees = new List<DisplayEmployeeInfo> {
+                new DisplayEmployeeInfo { EmployeeId = 1,  Name = "Craig Mifton", Age = 40, CurrentAssignedHabitats = new List<string> { "Forest" } },
+                new DisplayEmployeeInfo { EmployeeId = 2,  Name = "Travis Holmes", Age = 30, CurrentAssignedHabitats = new List<string> { "Arctic" } },
+                new DisplayEmployeeInfo { EmployeeId = 3,  Name = "Angie Stongly", Age = 26,  CurrentAssignedHabitats = new List<string> { "Forest" } },
+                new DisplayEmployeeInfo { EmployeeId = 4,  Name = "Jim Bakster", Age = 29,  CurrentAssignedHabitats = new List<string> { "Forest" } },
+                new DisplayEmployeeInfo { EmployeeId = 5,  Name = "Felicia Kennedy", Age = 33,  CurrentAssignedHabitats = new List<string> { "Arctic" } },
+                new DisplayEmployeeInfo { EmployeeId = 6,  Name = "Andrew Wilson", Age = 49,  CurrentAssignedHabitats = new List<string> { "Arctic" } },
+            };
             //Assert
-            Assert.AreEqual(actual_employees, expected_employees);
+            Assert.AreEqual(actual_employees.Count, expected_employees.Count);
         }
 
         [TestMethod]
         public void ZoolandiaRepoWillReturnASpecificEmployeeToDisplay()
         {
             //Arrange
-//TODO: Call Sandy's Seeding method
+            test_seed.Employee1.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat1 };
+            test_seed.Employee2.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat2 };
+            test_seed.Employee3.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat1 };
+            test_seed.Employee4.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat1 };
+            test_seed.Employee5.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat2 };
+            test_seed.Employee6.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat2 };
+
+            employee_list.Add(test_seed.Employee1);
+            employee_list.Add(test_seed.Employee2);
+            employee_list.Add(test_seed.Employee3);
+            employee_list.Add(test_seed.Employee4);
+            employee_list.Add(test_seed.Employee5);
+            employee_list.Add(test_seed.Employee6);
             //Act
-            DisplayEmployeeInfo actual_employee = repo.GetOneEmployeeDetailsById(1);
-//TODO: Fill in with Sandy's seeding results
-            DisplayEmployeeInfo expected_employee = new DisplayEmployeeInfo { };
+            DisplayEmployeeInfo actual_employee = repo.GetOneSpecificEmployee(3);
+            DisplayEmployeeInfo expected_employee = new DisplayEmployeeInfo { EmployeeId = 3, Name = "Angie Stongly", Age = 26, CurrentAssignedHabitats = new List<string> { "Forest" } };
+            
             //Assert
-            Assert.AreEqual(actual_employee, expected_employee);
+            Assert.AreEqual(actual_employee.EmployeeId, expected_employee.EmployeeId);
+            Assert.AreEqual(actual_employee.Name, expected_employee.Name);
+            Assert.AreEqual(actual_employee.Age, expected_employee.Age);
+            //Assert.AreEqual(actual_employee.CurrentAssignedHabitats[0], expected_employee.CurrentAssignedHabitats[0]);
+
         }
 
         [TestMethod]
         public void ZoolandiaRepoWillReturnAListOfAllHabitats()
         {
             //Arrange
-//TODO: Call Sandy's Seeding method
+            test_seed.Habitat1.CurrentInhabitants = new List<Animal> { test_seed.Animal1, test_seed.Animal2, test_seed.Animal3, test_seed.Animal6 };
+            test_seed.Habitat1.CurrentlyAssignedEmployees = new List<Employee> { test_seed.Employee1, test_seed.Employee3, test_seed.Employee4 };
+
+            test_seed.Habitat2.CurrentInhabitants = new List<Animal> { test_seed.Animal4, test_seed.Animal5 };
+            test_seed.Habitat2.CurrentlyAssignedEmployees = new List<Employee> { test_seed.Employee2, test_seed.Employee5, test_seed.Employee6 };
+
+            habitat_list.Add(test_seed.Habitat1);
+            habitat_list.Add(test_seed.Habitat2);
+
             //Act
             List<DisplayHabitatInfo> actual_habitats = repo.GetAllHabitats();
-//TODO: Fill in with Sandy's seeding results
-            List<DisplayHabitatInfo> expected_habitats = new List<DisplayHabitatInfo> { };
+            List<DisplayHabitatInfo> expected_habitats = new List<DisplayHabitatInfo> {
+                new DisplayHabitatInfo { HabitatId = 1, Name = "Forest", HabitatType = "Rain Forest", CurrentlyOpen = true,  NumberOfAnimalsInHabitat = 4, CurrentAnimals = new List<string> { "Ralph", "Ash", "Tommy",  "Suzy"}, CurrentAssignedEmployees = new List<string> { "Craig Mifton", "Angie Stongly", "Jim Bakster" } },
+                new DisplayHabitatInfo { HabitatId = 2, Name = "Arctic", HabitatType = null, CurrentlyOpen = true,  NumberOfAnimalsInHabitat = 4, CurrentAnimals = new List<string> { "Gina", "Hal"}, CurrentAssignedEmployees = new List<string> { "Travis Holmes", "Felicia Kennedy", "Andrew Wilson" } },
+            };
+
             //Assert
-            Assert.AreEqual(actual_habitats, expected_habitats);
+            Assert.AreEqual(actual_habitats.Count, expected_habitats.Count);
         }
 
         [TestMethod]
         public void ZoolandiaRepoWillReturnASpecificHabitatToDisplay()
         {
             //Arrange
-//TODO: Call Sandy's Seeding method
+            //Arrange
+            test_seed.Habitat1.CurrentInhabitants = new List<Animal> { test_seed.Animal1, test_seed.Animal2, test_seed.Animal3, test_seed.Animal6 };
+            test_seed.Habitat1.CurrentlyAssignedEmployees = new List<Employee> { test_seed.Employee1, test_seed.Employee3, test_seed.Employee4 };
+
+            test_seed.Habitat2.CurrentInhabitants = new List<Animal> { test_seed.Animal4, test_seed.Animal5 };
+            test_seed.Habitat2.CurrentlyAssignedEmployees = new List<Employee> { test_seed.Employee2, test_seed.Employee5, test_seed.Employee6 };
+
+            habitat_list.Add(test_seed.Habitat1);
+            habitat_list.Add(test_seed.Habitat2);
             //Act
-            DisplayHabitatInfo actual_habitat = repo.GetOneHabitatDetailsById(1);
-//TODO: Fill in with Sandy's seeding results
-            DisplayHabitatInfo expected_habitat = new DisplayHabitatInfo { };
-            //Assert
-            Assert.AreEqual(actual_habitat, expected_habitat);
+            DisplayHabitatInfo actual_habitat = repo.GetOneSpecificHabitat(1);
+            DisplayHabitatInfo expected_habitat = new DisplayHabitatInfo { HabitatId = 1, Name = "Forest", HabitatType = "Rain Forest", CurrentlyOpen = true, NumberOfAnimalsInHabitat = 4, CurrentAnimals = new List<string> { "Ralph", "Ash", "Tommy", "Suzy" }, CurrentAssignedEmployees = new List<string> { "Craig Mifton", "Angie Stongly", "Jim Bakster" } };
+            
+            //Assert 
+            Assert.AreEqual(actual_habitat.HabitatId, expected_habitat.HabitatId);
+            Assert.AreEqual(actual_habitat.Name, expected_habitat.Name);
+            Assert.AreEqual(actual_habitat.HabitatType, expected_habitat.HabitatType);
+            Assert.AreEqual(actual_habitat.CurrentlyOpen, expected_habitat.CurrentlyOpen);
+            Assert.AreEqual(actual_habitat.NumberOfAnimalsInHabitat, expected_habitat.NumberOfAnimalsInHabitat);
+            Assert.AreEqual(actual_habitat.CurrentAnimals.Count, expected_habitat.CurrentAnimals.Count);
+            Assert.AreEqual(actual_habitat.CurrentAssignedEmployees.Count, expected_habitat.CurrentAssignedEmployees.Count);
+
+
         }
     }
 }

@@ -30,10 +30,9 @@ namespace ZoolandiaRazor.DAL
                 currentAnimalFromDatabase.AnimalId = animalRow.AnimalId;
                 currentAnimalFromDatabase.Name = animalRow.Name;
                 currentAnimalFromDatabase.CurrentHabitat = animalRow.CurrentHabitat.Name;
-
                 ListOfAnimals.Add(currentAnimalFromDatabase);
             }
-            return ListOfAnimals; 
+            return ListOfAnimals;
         }
 
         // Gets the Employees table, pulls the required fields, adds them to the Employees "object" and adds each "object" to a List<>
@@ -115,16 +114,29 @@ namespace ZoolandiaRazor.DAL
             }
             else
             {
+                List<string> AnimalNames = new List<string>();
+                List<string> EmployeeNames = new List<string>();
+
+                // Looks through the Animals for the selected Habitat By Id, Selects the name of those animals and makes it a list
+                foreach (var inhabitant in singleHabitatReturned.CurrentInhabitants)
+                {
+                    AnimalNames.Add(inhabitant.Name);
+                };
+                // The intent is to take the employee table, find the ones where CurrentlyAssignedHabitats contains the requestedHabitatId and makes a list of the employee names
+                foreach (var employee in singleHabitatReturned.CurrentlyAssignedEmployees)
+                {
+                    EmployeeNames.Add(employee.Name);
+                };
+
                 DisplayHabitatInfo singleHabitatToBeDisplayed = new DisplayHabitatInfo
                 {
                     HabitatId = singleHabitatReturned.HabitatId,
                     Name = singleHabitatReturned.Name,
                     HabitatType = singleHabitatReturned.HabitatType,
-                    // Looks through the Animals for the selected Habitat By Id, Selects the name of those animals and makes it a list
-                    CurrentAnimals = Context.Animals.Where(a => a.CurrentHabitat.HabitatId == requestedHabitatByItsId).Select(a => a.Name).ToList(),
-                    // The intent is to take the employee table, find the ones where CurrentlyAssignedHabitats contains the requestedHabitatId and makes a list of the employee names
-                    CurrentAssignedEmployees = Context.Employees.Where(em => em.CurrentlyAssignedHabitats.ToString().Contains(requestedHabitatByItsId.ToString())).Select(em => em.Name).ToList()
-                };
+                    NumberOfAnimalsInHabitat = AnimalNames.Count,
+                    CurrentAnimals = AnimalNames,
+                    CurrentAssignedEmployees = EmployeeNames
+            };
                 return singleHabitatToBeDisplayed;
             }
         }
