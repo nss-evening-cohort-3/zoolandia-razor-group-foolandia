@@ -106,11 +106,11 @@ namespace ZoolandiaRazor.Tests
         public void ZoolandiaRepoWillReturnAListOfAllAnimals()
         {
             //Arrange
-//TODO: Call Sandy's Seeding method
+            //Seed method is called in initialize.
             //Act
             List<DisplayAnimalInfo> actual_animals =  repo.GetAllAnimals();
- //TODO: Fill in with Sandy's seeding results
-            List<DisplayAnimalInfo> expected_animals = new List<DisplayAnimalInfo> { };
+            List<DisplayAnimalInfo> expected_animals = new List<DisplayAnimalInfo> {
+                new DisplayAnimalInfo { AnimalId = 1,  Name = "Ralph", CommonName = "Red Panda", ScientificName = "Ailurus Fulgens", CurrentHabitat= "", Age = 3},
             //Assert
             Assert.AreEqual(actual_animals, expected_animals);
         }
@@ -121,7 +121,7 @@ namespace ZoolandiaRazor.Tests
             //Arrange
 //TODO: Call Sandy's Seeding method
             //Act
-            DisplayAnimalInfo actual_animal = repo.GetOneAnimalDetailsById(1);
+            DisplayAnimalInfo actual_animal = repo.GetOneSpecificAnimal(1);
 //TODO: Fill in with Sandy's seeding results
             DisplayAnimalInfo expected_animal = new DisplayAnimalInfo { };
             //Assert
@@ -147,7 +147,7 @@ namespace ZoolandiaRazor.Tests
             //Arrange
 //TODO: Call Sandy's Seeding method
             //Act
-            DisplayEmployeeInfo actual_employee = repo.GetOneEmployeeDetailsById(1);
+            DisplayEmployeeInfo actual_employee = repo.GetOneSpecificEmployee(1);
 //TODO: Fill in with Sandy's seeding results
             DisplayEmployeeInfo expected_employee = new DisplayEmployeeInfo { };
             //Assert
@@ -173,7 +173,7 @@ namespace ZoolandiaRazor.Tests
             //Arrange
 //TODO: Call Sandy's Seeding method
             //Act
-            DisplayHabitatInfo actual_habitat = repo.GetOneHabitatDetailsById(1);
+            DisplayHabitatInfo actual_habitat = repo.GetOneSpecificHabitat(1);
 //TODO: Fill in with Sandy's seeding results
             DisplayHabitatInfo expected_habitat = new DisplayHabitatInfo { };
             //Assert
