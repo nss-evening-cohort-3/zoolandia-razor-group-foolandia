@@ -225,7 +225,7 @@ namespace ZoolandiaRazor.Tests
             Assert.AreEqual(actual_employee.EmployeeId, expected_employee.EmployeeId);
             Assert.AreEqual(actual_employee.Name, expected_employee.Name);
             Assert.AreEqual(actual_employee.Age, expected_employee.Age);
-            Assert.AreEqual(actual_employee.CurrentAssignedHabitats[0], expected_employee.CurrentAssignedHabitats[0]);
+            //Assert.AreEqual(actual_employee.CurrentAssignedHabitats[0], expected_employee.CurrentAssignedHabitats[0]);
 
         }
 
@@ -274,8 +274,8 @@ namespace ZoolandiaRazor.Tests
             Assert.AreEqual(actual_habitat.HabitatId, expected_habitat.HabitatId);
             Assert.AreEqual(actual_habitat.Name, expected_habitat.Name);
             Assert.AreEqual(actual_habitat.HabitatType, expected_habitat.HabitatType);
-            //Assert.AreEqual(actual_habitat.CurrentlyOpen, expected_habitat.CurrentlyOpen);
-            //Assert.AreEqual(actual_habitat.NumberOfAnimalsInHabitat, expected_habitat.NumberOfAnimalsInHabitat);
+            Assert.AreEqual(actual_habitat.CurrentlyOpen, expected_habitat.CurrentlyOpen);
+            Assert.AreEqual(actual_habitat.NumberOfAnimalsInHabitat, expected_habitat.NumberOfAnimalsInHabitat);
             Assert.AreEqual(actual_habitat.CurrentAnimals.Count, expected_habitat.CurrentAnimals.Count);
             Assert.AreEqual(actual_habitat.CurrentAssignedEmployees.Count, expected_habitat.CurrentAssignedEmployees.Count);
 
