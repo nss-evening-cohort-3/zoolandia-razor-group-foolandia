@@ -1,8 +1,10 @@
 ﻿using System;
+using ZoolandiaRazor.DAL;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ZoolandiaRazor.Models;
 
 namespace ZoolandiaRazor.Controllers
 {
@@ -11,12 +13,8 @@ namespace ZoolandiaRazor.Controllers
         // GET: Animal
         public ActionResult Index()
         {
-            return View();
-        }
-
-        // GET: Animal/Details/5
-        public ActionResult Details(int id)
-        {
+            ZoolandiaRepository repo = new ZoolandiaRepository();
+            ViewBag.Animals = repo.GetAllAnimals();
             return View();
         }
 

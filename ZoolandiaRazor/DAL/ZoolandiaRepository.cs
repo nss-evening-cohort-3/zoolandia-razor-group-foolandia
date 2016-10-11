@@ -22,18 +22,17 @@ namespace ZoolandiaRazor.DAL
         {
             var animalTable = Context.Animals;
 
-            DisplayAnimalInfo currentAnimalFromDatabase = new DisplayAnimalInfo();
             List<DisplayAnimalInfo> ListOfAnimals = new List<DisplayAnimalInfo>();
 
             foreach (var animalRow in animalTable)
             {
+                DisplayAnimalInfo currentAnimalFromDatabase = new DisplayAnimalInfo();
                 currentAnimalFromDatabase.AnimalId = animalRow.AnimalId;
                 currentAnimalFromDatabase.Name = animalRow.Name;
-                currentAnimalFromDatabase.CurrentHabitat = animalRow.CurrentHabitat.Name.ToString();
-
+                currentAnimalFromDatabase.CurrentHabitat = animalRow.CurrentHabitat.Name;
                 ListOfAnimals.Add(currentAnimalFromDatabase);
             }
-            return ListOfAnimals; 
+            return ListOfAnimals;
         }
 
         // Gets the Employees table, pulls the required fields, adds them to the Employees "object" and adds each "object" to a List<>
@@ -41,11 +40,11 @@ namespace ZoolandiaRazor.DAL
         {
             var employeeTable = Context.Employees;
 
-            DisplayEmployeeInfo currentEmployeeFromDatabase = new DisplayEmployeeInfo();
             List<DisplayEmployeeInfo> ListOfEmployees = new List<DisplayEmployeeInfo>();
 
             foreach (var employeeRow in employeeTable)
             {
+                DisplayEmployeeInfo currentEmployeeFromDatabase = new DisplayEmployeeInfo();
                 currentEmployeeFromDatabase.EmployeeId = employeeRow.EmployeeId;
                 currentEmployeeFromDatabase.Name = employeeRow.Name;
 
@@ -59,11 +58,11 @@ namespace ZoolandiaRazor.DAL
         {
             var habitatTable = Context.Habitats;
 
-            DisplayHabitatInfo currentHabitatFromDatabase = new DisplayHabitatInfo();
             List<DisplayHabitatInfo> ListOfHabitats = new List<DisplayHabitatInfo>();
 
             foreach (var habitatRow in habitatTable)
             {
+                DisplayHabitatInfo currentHabitatFromDatabase = new DisplayHabitatInfo();
                 currentHabitatFromDatabase.HabitatId = habitatRow.HabitatId;
                 currentHabitatFromDatabase.Name = habitatRow.Name;
 
