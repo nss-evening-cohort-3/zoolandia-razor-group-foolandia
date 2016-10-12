@@ -13,7 +13,7 @@
         <ul class="list-group">
             @{foreach (var Animal in ViewBag.Animals)
                 {
-                    <li class="list-group-item">Name: <a href="Details/@Animal.AnimalId">@Animal.Name</a> , Current Habitat: @Animal.CurrentHabitat</li>
+                    <li class="list-group-item">Name: <a href="/Animal/Details/@Animal.AnimalId">@Animal.Name</a> , Current Habitat: @Animal.CurrentHabitat</li>
                 }
             }
         </ul>
