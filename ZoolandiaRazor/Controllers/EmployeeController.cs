@@ -18,6 +18,28 @@ namespace ZoolandiaRazor.Controllers
             return View();
         }
 
+        // GET: Employee/Details/5
+        public ActionResult Details(int id)
+        {
+            ZoolandiaRepository repo = new ZoolandiaRepository();
+
+            int EmployeeCount = repo.GetAllEmployees().Count;
+
+            if (id > 0 && id <= EmployeeCount)
+            {
+                ViewBag.ValidEmployee = true;
+
+                var SpecificEmployee = repo.GetOneSpecificEmployee(id);
+
+                ViewBag.SpecificEmployee = SpecificEmployee;
+                return View();
+            }
+            else
+            {
+                ViewBag.ValidEmployee = false;
+                return View();
+            }
+        }
     }
 }
 
