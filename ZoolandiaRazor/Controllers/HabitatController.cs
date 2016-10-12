@@ -19,12 +19,24 @@ namespace ZoolandiaRazor.Controllers
             return View();
         }
 
-
         // GET: Habitat/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
+        public ActionResult Details(int id)
+        {
+            ZoolandiaRepository repo = new ZoolandiaRepository();
 
+            int HabitatCount = repo.GetAllHabitats().Count;
+
+            if (id > 0 && id <= HabitatCount)
+            {
+                ViewBag.ValidHabitat = true;
+                ViewBag.SpecificHabitat = repo.GetOneSpecificHabitat(id);
+                return View();
+            }
+            else
+            {
+                ViewBag.ValidHabitat = false;
+                return View();
+            }
+        }
     }
 }
