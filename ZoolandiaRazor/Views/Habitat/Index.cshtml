@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "All Employees";
+    ViewBag.Title = "All Habitats";
 }
 
 <div class="jumbotron">
@@ -13,7 +13,7 @@
         <ul class="list-group">
             @{foreach (var Habitat in ViewBag.Habitats)
                 {
-                    <li class="list-group-item">Habitat Name: @Habitat.Name</li>
+                    <li class="list-group-item">Habitat Name: <a href="/Habitat/Details/@Habitat.HabitatId">@Habitat.Name </a></li>
 
                 }
             }
