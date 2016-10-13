@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ZoolandiaRazor.Models;
 
 namespace ZoolandiaRazor.DAL
 {
@@ -17,8 +18,27 @@ namespace ZoolandiaRazor.DAL
             Context = _context;
         }
 
+
+        virtual public void AddAnimal(Animal animal)
+        {
+            Context.Animals.Add(animal);
+            Context.SaveChanges();
+        }
+
+        virtual public void AddEmployee(Employee employee)
+        {
+            Context.Employees.Add(employee);
+            Context.SaveChanges();
+        }
+
+        virtual public void AddHabitat(Habitat habitat)
+        {
+            Context.Habitats.Add(habitat);
+            Context.SaveChanges();
+        }
+
         // Gets the Animals table, pulls the required fields, adds them to the Animal "object" and adds each "object" to a List<>
-        public List<DisplayAnimalInfo> GetAllAnimals()
+        virtual public List<DisplayAnimalInfo> GetAllAnimals()
         {
             var animalTable = Context.Animals;
 
@@ -36,7 +56,7 @@ namespace ZoolandiaRazor.DAL
         }
 
         // Gets the Employees table, pulls the required fields, adds them to the Employees "object" and adds each "object" to a List<>
-        public List<DisplayEmployeeInfo> GetAllEmployees()
+        virtual public List<DisplayEmployeeInfo> GetAllEmployees()
         {
             var employeeTable = Context.Employees;
 
@@ -54,7 +74,7 @@ namespace ZoolandiaRazor.DAL
         }
 
         // Gets the Habitats table, pulls the required fields, adds them to the Habitats "object" and adds each "object" to a List<>
-        public List<DisplayHabitatInfo> GetAllHabitats()
+        virtual public List<DisplayHabitatInfo> GetAllHabitats()
         {
             var habitatTable = Context.Habitats;
 
@@ -71,7 +91,7 @@ namespace ZoolandiaRazor.DAL
             return ListOfHabitats;
         }
 
-        public DisplayAnimalInfo GetOneSpecificAnimal(int requestedAnimalByItsId)
+        virtual public DisplayAnimalInfo GetOneSpecificAnimal(int requestedAnimalByItsId)
         {
             var singleAnimalReturned = Context.Animals.Where(a => a.AnimalId == requestedAnimalByItsId).FirstOrDefault(); // Returns 'null' if no entries are found instead of throwing an exception.
 
@@ -99,7 +119,7 @@ namespace ZoolandiaRazor.DAL
             }
         }
 
-        public DisplayHabitatInfo GetOneSpecificHabitat(int requestedHabitatByItsId)
+        virtual public DisplayHabitatInfo GetOneSpecificHabitat(int requestedHabitatByItsId)
         {
             var singleHabitatReturned = Context.Habitats.Where(a => a.HabitatId == requestedHabitatByItsId).FirstOrDefault(); // Returns 'null' if no entries are found instead of throwing an exception.
 
@@ -141,7 +161,7 @@ namespace ZoolandiaRazor.DAL
             }
         }
 
-        public DisplayEmployeeInfo GetOneSpecificEmployee(int requestedEmployeeById)
+        virtual public DisplayEmployeeInfo GetOneSpecificEmployee(int requestedEmployeeById)
         {
             var singleEmployeeReturned = Context.Employees.Where(a => a.EmployeeId == requestedEmployeeById).FirstOrDefault(); // Returns 'null' if no entries are found instead of throwing an exception.
 

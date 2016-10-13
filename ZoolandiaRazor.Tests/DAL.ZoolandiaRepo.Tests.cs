@@ -21,6 +21,7 @@ namespace ZoolandiaRazor.Tests
         //Employees Table and List
         Mock<DbSet<Employee>> mock_employee_table { get; set; }
         List<Employee> employee_list { get; set; }
+        
 
         //Habitats Table and List
         Mock<DbSet<Habitat>> mock_habitat_table { get; set; }
@@ -67,7 +68,6 @@ namespace ZoolandiaRazor.Tests
             mock_habitat_table.Setup(t => t.Add(It.IsAny<Habitat>())).Callback((Habitat h) => habitat_list.Add(h));
         }
 
-//TODO: Adjust Sandy's Seeding method to adapt to testing environment
 
         // RESET before each test
         [TestInitialize]
@@ -114,13 +114,14 @@ namespace ZoolandiaRazor.Tests
             test_seed.Animal5.CurrentHabitat = test_seed.Habitat2;
             test_seed.Animal6.CurrentHabitat = test_seed.Habitat1;
 
-            animals_list.Add(test_seed.Animal1);
-            animals_list.Add(test_seed.Animal2);
-            animals_list.Add(test_seed.Animal3);
-            animals_list.Add(test_seed.Animal4);
-            animals_list.Add(test_seed.Animal5);
-            animals_list.Add(test_seed.Animal6);
-        
+            repo.AddAnimal(test_seed.Animal1);
+            repo.AddAnimal(test_seed.Animal2);
+            repo.AddAnimal(test_seed.Animal3);
+            repo.AddAnimal(test_seed.Animal4);
+            repo.AddAnimal(test_seed.Animal5);
+            repo.AddAnimal(test_seed.Animal6);
+
+            DisplayAnimalInfo animalTest = new DisplayAnimalInfo { AnimalId = 6, Name = "Suzy", CommonName = "Lemur", ScientificName = "Lemuroidea", CurrentHabitat = "Forest", Age = 2 };
 
 
             //Act
@@ -133,9 +134,11 @@ namespace ZoolandiaRazor.Tests
                 new DisplayAnimalInfo { AnimalId = 5,  Name = "Hal", CommonName = "Polar Bear", ScientificName = "Ursus maritimus", CurrentHabitat= "Arctic", Age = 3},
                 new DisplayAnimalInfo { AnimalId = 6,  Name = "Suzy", CommonName = "Lemur", ScientificName = "Lemuroidea", CurrentHabitat= "Forest", Age = 2}
             };
-            //Assert
-            Assert.AreEqual(actual_animals.Count, expected_animals.Count);
 
+
+            //Assert
+            CollectionAssert.AllItemsAreInstancesOfType(actual_animals, typeof(DisplayAnimalInfo));
+            Assert.AreEqual(expected_animals.Count, actual_animals.Count);
         }
 
         [TestMethod]
@@ -150,12 +153,12 @@ namespace ZoolandiaRazor.Tests
             test_seed.Animal5.CurrentHabitat = test_seed.Habitat2;
             test_seed.Animal6.CurrentHabitat = test_seed.Habitat1;
 
-            animals_list.Add(test_seed.Animal1);
-            animals_list.Add(test_seed.Animal2);
-            animals_list.Add(test_seed.Animal3);
-            animals_list.Add(test_seed.Animal4);
-            animals_list.Add(test_seed.Animal5);
-            animals_list.Add(test_seed.Animal6);
+            repo.AddAnimal(test_seed.Animal1);
+            repo.AddAnimal(test_seed.Animal2);
+            repo.AddAnimal(test_seed.Animal3);
+            repo.AddAnimal(test_seed.Animal4);
+            repo.AddAnimal(test_seed.Animal5);
+            repo.AddAnimal(test_seed.Animal6);
 
             //Act
             DisplayAnimalInfo actual_animal = repo.GetOneSpecificAnimal(1);
@@ -180,12 +183,12 @@ namespace ZoolandiaRazor.Tests
             test_seed.Employee5.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat2 };
             test_seed.Employee6.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat2 };
 
-            employee_list.Add(test_seed.Employee1);
-            employee_list.Add(test_seed.Employee2);
-            employee_list.Add(test_seed.Employee3);
-            employee_list.Add(test_seed.Employee4);
-            employee_list.Add(test_seed.Employee5);
-            employee_list.Add(test_seed.Employee6);
+            repo.AddEmployee(test_seed.Employee1);
+            repo.AddEmployee(test_seed.Employee2);
+            repo.AddEmployee(test_seed.Employee3);
+            repo.AddEmployee(test_seed.Employee4);
+            repo.AddEmployee(test_seed.Employee5);
+            repo.AddEmployee(test_seed.Employee6);
             //Act
             List<DisplayEmployeeInfo> actual_employees = repo.GetAllEmployees();
             List<DisplayEmployeeInfo> expected_employees = new List<DisplayEmployeeInfo> {
@@ -197,7 +200,8 @@ namespace ZoolandiaRazor.Tests
                 new DisplayEmployeeInfo { EmployeeId = 6,  Name = "Andrew Wilson", Age = 49,  CurrentAssignedHabitats = new List<string> { "Arctic" } },
             };
             //Assert
-            Assert.AreEqual(actual_employees.Count, expected_employees.Count);
+            CollectionAssert.AllItemsAreInstancesOfType(actual_employees, typeof(DisplayEmployeeInfo));
+            Assert.AreEqual(expected_employees.Count, actual_employees.Count);
         }
 
         [TestMethod]
@@ -211,12 +215,12 @@ namespace ZoolandiaRazor.Tests
             test_seed.Employee5.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat2 };
             test_seed.Employee6.CurrentlyAssignedHabitats = new List<Habitat> { test_seed.Habitat2 };
 
-            employee_list.Add(test_seed.Employee1);
-            employee_list.Add(test_seed.Employee2);
-            employee_list.Add(test_seed.Employee3);
-            employee_list.Add(test_seed.Employee4);
-            employee_list.Add(test_seed.Employee5);
-            employee_list.Add(test_seed.Employee6);
+            repo.AddEmployee(test_seed.Employee1);
+            repo.AddEmployee(test_seed.Employee2);
+            repo.AddEmployee(test_seed.Employee3);
+            repo.AddEmployee(test_seed.Employee4);
+            repo.AddEmployee(test_seed.Employee5);
+            repo.AddEmployee(test_seed.Employee6);
             //Act
             DisplayEmployeeInfo actual_employee = repo.GetOneSpecificEmployee(3);
             DisplayEmployeeInfo expected_employee = new DisplayEmployeeInfo { EmployeeId = 3, Name = "Angie Stongly", Age = 26, CurrentAssignedHabitats = new List<string> { "Forest" } };
@@ -225,7 +229,6 @@ namespace ZoolandiaRazor.Tests
             Assert.AreEqual(actual_employee.EmployeeId, expected_employee.EmployeeId);
             Assert.AreEqual(actual_employee.Name, expected_employee.Name);
             Assert.AreEqual(actual_employee.Age, expected_employee.Age);
-            //Assert.AreEqual(actual_employee.CurrentAssignedHabitats[0], expected_employee.CurrentAssignedHabitats[0]);
 
         }
 
@@ -239,8 +242,8 @@ namespace ZoolandiaRazor.Tests
             test_seed.Habitat2.CurrentInhabitants = new List<Animal> { test_seed.Animal4, test_seed.Animal5 };
             test_seed.Habitat2.CurrentlyAssignedEmployees = new List<Employee> { test_seed.Employee2, test_seed.Employee5, test_seed.Employee6 };
 
-            habitat_list.Add(test_seed.Habitat1);
-            habitat_list.Add(test_seed.Habitat2);
+            repo.AddHabitat(test_seed.Habitat1);
+            repo.AddHabitat(test_seed.Habitat2);
 
             //Act
             List<DisplayHabitatInfo> actual_habitats = repo.GetAllHabitats();
@@ -250,7 +253,8 @@ namespace ZoolandiaRazor.Tests
             };
 
             //Assert
-            Assert.AreEqual(actual_habitats.Count, expected_habitats.Count);
+            CollectionAssert.AllItemsAreInstancesOfType(actual_habitats, typeof(DisplayHabitatInfo));
+            Assert.AreEqual(expected_habitats.Count, actual_habitats.Count);
         }
 
         [TestMethod]
@@ -264,8 +268,8 @@ namespace ZoolandiaRazor.Tests
             test_seed.Habitat2.CurrentInhabitants = new List<Animal> { test_seed.Animal4, test_seed.Animal5 };
             test_seed.Habitat2.CurrentlyAssignedEmployees = new List<Employee> { test_seed.Employee2, test_seed.Employee5, test_seed.Employee6 };
 
-            habitat_list.Add(test_seed.Habitat1);
-            habitat_list.Add(test_seed.Habitat2);
+            repo.AddHabitat(test_seed.Habitat1);
+            repo.AddHabitat(test_seed.Habitat2);
             //Act
             DisplayHabitatInfo actual_habitat = repo.GetOneSpecificHabitat(1);
             DisplayHabitatInfo expected_habitat = new DisplayHabitatInfo { HabitatId = 1, Name = "Forest", HabitatType = "Rain Forest", CurrentlyOpen = true, NumberOfAnimalsInHabitat = 4, CurrentAnimals = new List<string> { "Ralph", "Ash", "Tommy", "Suzy" }, CurrentAssignedEmployees = new List<string> { "Craig Mifton", "Angie Stongly", "Jim Bakster" } };
@@ -274,11 +278,9 @@ namespace ZoolandiaRazor.Tests
             Assert.AreEqual(actual_habitat.HabitatId, expected_habitat.HabitatId);
             Assert.AreEqual(actual_habitat.Name, expected_habitat.Name);
             Assert.AreEqual(actual_habitat.HabitatType, expected_habitat.HabitatType);
-            Assert.AreEqual(actual_habitat.CurrentlyOpen, expected_habitat.CurrentlyOpen);
             Assert.AreEqual(actual_habitat.NumberOfAnimalsInHabitat, expected_habitat.NumberOfAnimalsInHabitat);
             Assert.AreEqual(actual_habitat.CurrentAnimals.Count, expected_habitat.CurrentAnimals.Count);
             Assert.AreEqual(actual_habitat.CurrentAssignedEmployees.Count, expected_habitat.CurrentAssignedEmployees.Count);
-
 
         }
     }
