@@ -18,5 +18,26 @@ namespace ZoolandiaRazor.Controllers
             return View();
         }
 
+        // GET: Animal/Details/5
+        public ActionResult Details(int id)
+        {
+            ZoolandiaRepository repo = new ZoolandiaRepository();
+
+            int AnimalsCount = repo.GetAllAnimals().Count;
+
+            if (id > 0 && id <= AnimalsCount)
+            {
+                ViewBag.ValidAnimal = true;
+                ViewBag.SpecificAnimal = repo.GetOneSpecificAnimal(id);
+                return View();
+            }
+            else
+            {
+                ViewBag.ValidAnimal = false;
+                return View();
+            }
+
+
+        }
     }
 }
